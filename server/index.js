@@ -8,6 +8,8 @@ import morgan from "morgan";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
+import authRoutes from "./routes/auth.js";
+import { register } from "./controllers/auth.js";
 
 // configurations
 
@@ -36,6 +38,14 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
+
+// routes with files
+
+app.post("/auth/register", upload.single("picture"), register);
+
+// routes
+
+app.use("/auth", authRoutes);
 
 // mongoose setup
 
